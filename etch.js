@@ -10,23 +10,11 @@ function makeGrid(){
         document.getElementById('boxParent').appendChild(row); //puts all divs inside boxParent div
     } 
 }
-// window.onload = makeGrid; when page load run makeGrid
 
-window.onload = function(){
-    makeGrid();
-    let box = document.getElementsByClassName("box");
-    box[0].addEventListener("mouseover", func, false);
-    box[0].addEventListener("mouseout", func1, false);
-    function func(){
-        let box = document.getElementsByClassName("box");
-        for(let i = 0; i < box.length; i++){
-            box[i].setAttribute("style", "background-color:blue;");
-        }
-    }
-    function func1(){
-        let box = document.getElementsByClassName("box");
-        for(let i = 0; i < box.length; i++){
-            box[i].setAttribute("style", "background-color:red;");
-        }
-    }
+window.onload = function(){ 
+    makeGrid();// when page load run makeGrid
+    let box = document.getElementsByClassName("box"); 
+    Array.from(box).forEach(etch => etch.addEventListener('mouseover', function(){ //changes variable into array and turns mouseover boxes background color black
+        etch.style.background = 'black';
+    }));
 }
