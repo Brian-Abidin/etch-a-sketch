@@ -1,6 +1,15 @@
 const boxParent = document.querySelector('#boxParent');
 const button = document.querySelector('#buttons');
+const resetButton = document.createElement('button');
+const resizeGrid = document. createElement('button');
 
+resetButton.textContent = "Reset Grid";
+resetButton.addEventListener("click", resetGrid);
+button.appendChild(resetButton);
+
+resizeGrid.textContent = "Resize Grid";
+resizeGrid.addEventListener('click', gridSize);
+button.appendChild(resizeGrid);
 
 /* function makeGrid(col, row){
     for(let i=0; i<36; i++){
@@ -16,7 +25,7 @@ const button = document.querySelector('#buttons');
 } */
 
 
-function gridSize(){
+function checkSize(){
     userInput = prompt("how many rows and columns do you want your grid to have? (Must be greater than 0 but less than 100)");
     if(userInput > 100 || userInput < 1 || userInput === null || userInput === '' || isNaN(userInput)){
         return 16;
@@ -30,35 +39,46 @@ function nameTitle(){
     title.textContent = "Etch-A-Sketch";
 }
 
-function makeGrid(gridSize){
-    for(let i = 0; i<(gridSize*gridSize); i++){
+function makeGrid(rowscolumns){
+    for(let i = 0; i<(rowscolumns*rowscolumns); i++){
         const row = document.createElement('div');
         row.style.border = '1px solid black';
-        boxParent.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-        boxParent.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
+        boxParent.style.gridTemplateColumns = `repeat(${rowscolumns}, 1fr)`;
+        boxParent.style.gridTemplateRows = `repeat(${rowscolumns}, 1fr)`;
         boxParent.appendChild(row).classList.add('box');
     }
 }
+function deleteBox(){
+    let node = document.getElementById("boxParent")
+    node.querySelectorAll('*').forEach(n => n.remove());
+}
 
-window.onload = function(){
-    nameTitle();
-    let input = gridSize();
-    console.log(input);
+function resetGrid(){
+    let box = document.getElementsByClassName("box");
+    Array.from(box).forEach(reset => reset.style.background = 'white');
+}
+
+function gridSize(){
+    resetGrid();
+    deleteBox();
+    let input = checkSize();
     makeGrid(input);
+    colorBlack();
+}
+function colorBlack(){
     let box = document.getElementsByClassName("box"); 
     Array.from(box).forEach(etch => etch.addEventListener('mouseover', function(){ //changes variable into array and turns mouseover boxes background color black
         etch.style.background = 'black';
     }));
 }
 
-const resetButton = document.createElement('button');
-resetButton.textContent = "Reset Grid";
-button.appendChild(resetButton);
-resetButton.addEventListener("click", resetGrid);
 
-function resetGrid(){
-    let box = document.getElementsByClassName("box");
-    Array.from(box).forEach(reset => reset.style.background = 'white');
+window.onload = function(){
+    nameTitle();
+    let input = checkSize();
+    console.log(input);
+    makeGrid(input);
+    colorBlack();
 }
 
 
