@@ -1,4 +1,6 @@
-const boxParent = document.querySelector('#boxParent')
+const boxParent = document.querySelector('#boxParent');
+const button = document.querySelector('#buttons');
+
 
 /* function makeGrid(col, row){
     for(let i=0; i<36; i++){
@@ -37,6 +39,18 @@ window.onload = function(){
     }));
 }
 
+const resetButton = document.createElement('button');
+resetButton.textContent = "Reset Grid";
+button.appendChild(resetButton);
+resetButton.addEventListener("click", resetGrid);
+
+function resetGrid(){
+    let box = document.getElementsByClassName("box"); 
+    Array.from(box).forEach(etch => etch.addEventListener('mouseover', function(){ //changes variable into array and turns mouseover boxes background color black
+        etch.style.background = 'white';
+    }));
+}
+
 
 /* window.onload = function(){ 
     makeGrid();// when page load run makeGrid
@@ -45,6 +59,7 @@ window.onload = function(){
         etch.style.background = 'black';
     }));
 }
+
 const resetButton = document.createElement('button');
 resetButton.textContent = "Reset Grid";
 resetButton.setAttribute('onclick', "alert('hello!');");
