@@ -15,24 +15,36 @@ const button = document.querySelector('#buttons');
     } 
 } */
 
+
+function gridSize(){
+    userInput = prompt("how many rows and columns do you want your grid to have? (Must be greater than 0 but less than 100)");
+    if(userInput > 100 || userInput < 1 || userInput === null || userInput === '' || isNaN(userInput)){
+        return 16;
+    } else {
+        return userInput;
+    }
+}
+
 function nameTitle(){
     const title = document.querySelector('h1');
     title.textContent = "Etch-A-Sketch";
 }
 
-function makeGrid(col, row){
-    for(let i = 0; i<(col*row); i++){
+function makeGrid(gridSize){
+    for(let i = 0; i<(gridSize*gridSize); i++){
         const row = document.createElement('div');
         row.style.border = '1px solid black';
-        boxParent.style.gridTemplateColumns = `repeat(${col}, 1fr)`;
-        boxParent.style.gridTemplateRows = `repeat(${row}, 1fr)`;
+        boxParent.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+        boxParent.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
         boxParent.appendChild(row).classList.add('box');
     }
 }
 
 window.onload = function(){
     nameTitle();
-    makeGrid(16,16);
+    let input = gridSize();
+    console.log(input);
+    makeGrid(input);
     let box = document.getElementsByClassName("box"); 
     Array.from(box).forEach(etch => etch.addEventListener('mouseover', function(){ //changes variable into array and turns mouseover boxes background color black
         etch.style.background = 'black';
