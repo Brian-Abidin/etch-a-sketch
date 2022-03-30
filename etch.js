@@ -4,6 +4,7 @@ const resetButton = document.createElement('button');
 const resizeGrid = document.createElement('button');
 const Black = document.createElement('button');
 const RGB = document.createElement('button');
+const Grey = document.createElement('button');
 
 resetButton.textContent = "Reset Grid";
 resetButton.addEventListener("click", resetGrid);
@@ -21,19 +22,14 @@ RGB.textContent = "Color: Random RGB";
 RGB.addEventListener("click", colorRGB);
 button.appendChild(RGB);
 
-/* function makeGrid(col, row){
-    for(let i=0; i<36; i++){
-        let row = document.createElement('div'); // creates i amount of row
-        row.className = "row"; // div given class name row
-        for(let j=0; j<36; j++){
-            let box = document.createElement('div'); //creates j amount of boxes
-            box.className = "box"; // div given class name box
-            row.appendChild(box); //adds j boxes to each row 
-        }
-        document.getElementById('boxParent').appendChild(row); //puts all divs inside boxParent div
-    } 
-} */
+Grey.textContent = "Color: Grey Monochrome";
+Grey.addEventListener("click", colorGrey);
+button.appendChild(Grey);
 
+function nameTitle(){
+    const title = document.querySelector('h1');
+    title.textContent = "Etch-A-Sketch";
+}
 
 function checkSize(){
     userInput = prompt("how many rows and columns do you want your grid to have? (Must be greater than 0 but less than 100)");
@@ -42,11 +38,6 @@ function checkSize(){
     } else {
         return userInput;
     }
-}
-
-function nameTitle(){
-    const title = document.querySelector('h1');
-    title.textContent = "Etch-A-Sketch";
 }
 
 function makeGrid(rowscolumns){
@@ -58,7 +49,7 @@ function makeGrid(rowscolumns){
         boxParent.appendChild(row).classList.add('box');
     }
 }
-function deleteBox(){ // deletes all nodes in boxParent
+function deleteGrid(){ // deletes all nodes in boxParent
     let node = document.getElementById("boxParent")
     node.querySelectorAll('*').forEach(n => n.remove()); //for all node in boxParent delete them
 }
@@ -70,11 +61,12 @@ function resetGrid(){ // all div named box background is reset to white
 
 function gridSize(){ // runs different functions to clear & reset the gridSize based on user input
     resetGrid();
-    deleteBox();
+    deleteGrid();
     let input = checkSize();
     makeGrid(input);
     colorBlack();
 }
+
 function colorBlack(){
     let box = document.getElementsByClassName("box"); 
     Array.from(box).forEach(etch => etch.addEventListener('mouseover', function(){ //changes variable into array and turns mouseover boxes background color black
@@ -92,25 +84,17 @@ function colorRGB(){
     }));
 }
 
-window.onload = function(){
-    nameTitle();
-    let input = checkSize();
-    console.log(input);
-    makeGrid(input);
-    colorBlack();
-}
-
-
-/* window.onload = function(){ 
-    makeGrid();// when page load run makeGrid
+function colorGrey(){
     let box = document.getElementsByClassName("box"); 
     Array.from(box).forEach(etch => etch.addEventListener('mouseover', function(){ //changes variable into array and turns mouseover boxes background color black
-        etch.style.background = 'black';
+        let grey = Math.floor(Math.random() * 255);
+        etch.style.background = `rgb(${grey}, ${grey}, ${grey}`;
     }));
 }
 
-const resetButton = document.createElement('button');
-resetButton.textContent = "Reset Grid";
-resetButton.setAttribute('onclick', "alert('hello!');");
-container.appendChild(resetButton); */
-
+window.onload = function(){
+    nameTitle();
+    let input = checkSize();
+    makeGrid(input);
+    colorBlack();
+}
