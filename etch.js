@@ -45,10 +45,8 @@ button.appendChild(resetButton);
 resetButton.addEventListener("click", resetGrid);
 
 function resetGrid(){
-    let box = document.getElementsByClassName("box"); 
-    Array.from(box).forEach(etch => etch.addEventListener('mouseover', function(){ //changes variable into array and turns mouseover boxes background color black
-        etch.style.background = 'white';
-    }));
+    let box = document.getElementsByClassName("box");
+    Array.from(box).forEach(reset => reset.style.background = 'white');
 }
 
 
