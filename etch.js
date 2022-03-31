@@ -40,26 +40,20 @@ function checkSize(){
     }
 }
 
-function makeGrid(rowscolumns){
-    for(let i = 0; i<(rowscolumns*rowscolumns); i++){
+function makeGrid(size){
+    for(let i = 0; i<(size*size); i++){
         const row = document.createElement('div');
-        row.style.border = '1px solid black';
-        boxParent.style.gridTemplateColumns = `repeat(${rowscolumns}, 1fr)`;
-        boxParent.style.gridTemplateRows = `repeat(${rowscolumns}, 1fr)`;
+        boxParent.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+        boxParent.style.gridTemplateRows = `repeat(${size}, 1fr)`;
         boxParent.appendChild(row).classList.add('box');
     }
 }
-function deleteGrid(){ // deletes all nodes in boxParent
+function deleteGrid(){ 
     let node = document.getElementById("boxParent")
-    node.querySelectorAll('*').forEach(n => n.remove()); //for all node in boxParent delete them
+    node.querySelectorAll('*').forEach(n => n.remove()); 
 }
 
-function resetGrid(){ // all div named box background is reset to white 
-    let box = document.getElementsByClassName("box");
-    Array.from(box).forEach(reset => reset.style.background = 'white');
-}
-
-function gridSize(){ // runs different functions to clear & reset the gridSize based on user input
+function gridSize(){ 
     resetGrid();
     deleteGrid();
     let input = checkSize();
@@ -67,16 +61,21 @@ function gridSize(){ // runs different functions to clear & reset the gridSize b
     colorBlack();
 }
 
+function resetGrid(){ 
+    let box = document.getElementsByClassName("box");
+    Array.from(box).forEach(reset => reset.style.background = 'white');
+}
+
 function colorBlack(){
     let box = document.getElementsByClassName("box"); 
-    Array.from(box).forEach(etch => etch.addEventListener('mouseover', function(){ //changes variable into array and turns mouseover boxes background color black
+    Array.from(box).forEach(etch => etch.addEventListener('mouseover', function(){ 
         etch.style.background = 'black';
     }));
 }
 
 function colorRGB(){
-    let box = document.getElementsByClassName("box"); 
-    Array.from(box).forEach(etch => etch.addEventListener('mouseover', function(){ //changes variable into array and turns mouseover boxes background color black
+    let box = document.getElementsByClassName("box");
+    Array.from(box).forEach(etch => etch.addEventListener('mouseover', function(){
         let R = Math.floor(Math.random() * 255);
         let G = Math.floor(Math.random() * 255);
         let B = Math.floor(Math.random() * 255);
@@ -86,7 +85,7 @@ function colorRGB(){
 
 function colorGrey(){
     let box = document.getElementsByClassName("box"); 
-    Array.from(box).forEach(etch => etch.addEventListener('mouseover', function(){ //changes variable into array and turns mouseover boxes background color black
+    Array.from(box).forEach(etch => etch.addEventListener('mouseover', function(){ 
         let grey = Math.floor(Math.random() * 255);
         etch.style.background = `rgb(${grey}, ${grey}, ${grey}`;
     }));
